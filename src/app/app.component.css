@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  /* --color:#1d2b3a;
+    --text:#fff;
+    --lable:rgba(255, 255, 255, 0.25); */
+
+  --color: white;
+  --text: black;
+  --lable: royalblue;
+  --title: royalblue;
+}
+body {
+  display: flex;
+  background: var(--color);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.data {
+  display: none;
+}
+
+h1 {
+  margin-top: 17px;
+  color: var(--title);
+}
+
+.inputBox select {
+  /* width: 200px; */
+  padding: 5px;
+  padding-bottom: 0;
+  border: 1px solid var(--lable);
+  background: var(--color);
+  border-radius: 5px;
+  outline: none;
+  color: var(--text);
+  font-size: 1em;
+}
+.inputBox input {
+  /* width: 200px; */
+  padding: 10px;
+  border: 1px solid var(--lable);
+  background: var(--color);
+  border-radius: 5px;
+  outline: none;
+  color: var(--text);
+  font-size: 1em;
+}
+
+.inputBox input:focus {
+  background: var(--color);
+  color: var(--text);
+}
+.inputBox select:focus {
+  background: var(--color);
+  color: var(--text);
+}
+.inputBox label {
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: var(--lable);
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+/* Button */
+#btn {
+  display: block;
+  margin: auto;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#mode {
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--title);
+  font-size: 3em;
+  cursor: pointer;
+}
+
+/* Info / Result */
+.info {
+  margin-top: 13px;
+  margin-bottom: 13px;
+  font-size: x-large;
+  border: solid 1px var(--lable);
+  padding: 10px;
+  color: var(--text);
+}
+.info_label {
+  color: var(--text);
+}
+
+#lots {
+  margin-left: 66px;
+  color: var(--text);
+}
+#maxLot {
+  margin-left: -5px;
+  color: red;
+  font-style: italic;
+  font-size: 17px;
+}
+#quantities {
+  margin-left: 52px;
+  color: var(--text);
+}
+#tax {
+  color: #f12d2d;
+  margin-left: 48px;
+}
+#net_profit {
+  color: #f12d2d;
+  margin-left: 46px;
+}

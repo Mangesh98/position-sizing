@@ -1,0 +1,104 @@
+<i onclick="changeIcon(this)" id="mode" class="fa-solid fa-sun"></i>
+<div class="inputBox">
+<form method = "post" class="">
+    <div class="d-flex justify-content-center">
+        <h1>Position Calculator</h1>
+    </div>
+  <div class="form-data">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Account</label>
+      <input
+        required
+        value="1000"
+        type="number"
+        class="form-control"
+        id="account"
+        name="account"
+      />
+    </div>
+  <div class="form-data">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Daily Risk</label>
+      <input
+        required
+        value="3000"
+        type="Number"
+        class="form-control"
+        id="dailyRisk"
+        name="dailyRisk"
+      />
+    </div>
+    
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Select Index</label>
+      <select class="form-control" id="exampleFormControlSelect1" name="lotSize">
+        <option value="50">Nifty</option>
+        <option value="25">BankNifty</option>
+      </select> 
+    </div>
+    
+      <div class="form-group">
+        <label for="exampleInputEmail1">Entry Price</label>
+        <input
+          value=""
+          required
+          type="number"
+          class="form-control"
+          id="entry"
+          aria-describedby="entry"
+          name="entryPrice"
+          step=".01"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Stop Loss</label>
+        <input
+          value=""
+          required
+          type="number"
+          class="form-control"
+          id="stopLoss"
+          aria-describedby="sl"
+          name="stopLoss"
+          step=".01"
+        />
+      </div>
+
+      <button type="submit" id="btn" class=" btn btn-primary">Submit</button>
+    <!-- </form> -->
+  </div>
+
+
+  <div class="d-flex justify-content-center">
+  <div class=" info -flex justify-content-between">
+    <div>Lots<label class="info_label" style="margin-left: 88px;">:</label><label id="lots">0<label id="maxLot">(max lot)</label></label></div>
+    <div>Quantities<label class="info_label" style="margin-left: 25px;">:</label><label id="quantities">0</label></div>
+    <div>Total Tax<label class="info_label" style="margin-left: 45px;">:</label><label id="tax">0</label></div>
+    <div>Net P&L<label class="info_label" style="margin-left: 47px;">:</label><label id="net_profit">0</label></div>
+  </div>
+  </div>
+
+  <script>
+    let changeIcon = function (icon) {
+  let c = document.querySelector(":root");
+  if (icon.classList.contains("fa-sun")) {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+
+    c.style.setProperty("--color", '#1d2b3a');
+    c.style.setProperty("--text", '#fff');
+    c.style.setProperty("--lable", 'rgba(255, 255, 255, 0.25)');
+    c.style.setProperty("--title", '#fff');
+    
+  } else {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+
+    c.style.setProperty("--color", 'white');
+    c.style.setProperty("--text", 'black');
+    c.style.setProperty("--lable", 'royalblue');
+    c.style.setProperty("--title", 'royalblue');
+    
+  }
+};
+  </script>
