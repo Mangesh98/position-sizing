@@ -5,19 +5,21 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-:root {
-  /* --color:#1d2b3a;
-    --text:#fff;
-    --lable:rgba(255, 255, 255, 0.25); */
+/* :host {
+  /* --bs-white:#1d2b3a;
+    --bs-black:#fff;
+    --bs-primary:rgba(255, 255, 255, 0.25); 
 
-  --color: white;
-  --text: black;
-  --lable: royalblue;
-  --title: royalblue;
-}
-body {
+  --color: white;/*--bs-white 
+  --text: black; /*--bs-black
+  --lable: royalblue; /*--bs-primary 
+  --title: royalblue; /*--bs-blue 
+} */
+
+.app {
+  min-height: 100vh;
   display: flex;
-  background: var(--color);
+  background: var(--bs-white);
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -28,52 +30,63 @@ body {
 
 h1 {
   margin-top: 17px;
-  color: var(--title);
+  color: var(--bs-blue);
 }
 
 .inputBox select {
   /* width: 200px; */
   padding: 5px;
   padding-bottom: 0;
-  border: 1px solid var(--lable);
-  background: var(--color);
+  border: 1px solid var(--bs-primary);
+  background: var(--bs-white);
   border-radius: 5px;
   outline: none;
-  color: var(--text);
+  color: var(--bs-black);
   font-size: 1em;
 }
 .inputBox input {
   /* width: 200px; */
   padding: 10px;
-  border: 1px solid var(--lable);
-  background: var(--color);
+  border: 1px solid var(--bs-primary);
+  background: var(--bs-white);
   border-radius: 5px;
   outline: none;
-  color: var(--text);
+  color: var(--bs-black);
   font-size: 1em;
 }
 
 .inputBox input:focus {
-  background: var(--color);
-  color: var(--text);
+  background: var(--bs-white);
+  color: var(--bs-black);
 }
 .inputBox select:focus {
-  background: var(--color);
-  color: var(--text);
+  background: var(--bs-white);
+  color: var(--bs-black);
 }
 .inputBox label {
   padding: 10px;
   pointer-events: none;
   font-size: 1em;
-  color: var(--lable);
+  color: var(--bs-primary);
   text-transform: uppercase;
   transition: 0.5s;
+}
+
+
+/* Alert */
+.a{
+  padding: 10px;
+  margin: 10px;
 }
 
 /* Button */
 #btn {
   display: block;
   margin: auto;
+  padding: 7px;
+}
+.btnSubmit {
+  margin-top: 10px;
 }
 
 input::-webkit-outer-spin-button,
@@ -82,12 +95,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#mode {
+.mode {
   margin: 15px;
   position: absolute;
   top: 0;
   right: 0;
-  color: var(--title);
+  color: var(--bs-blue);
   font-size: 3em;
   cursor: pointer;
 }
@@ -97,17 +110,17 @@ input::-webkit-inner-spin-button {
   margin-top: 13px;
   margin-bottom: 13px;
   font-size: x-large;
-  border: solid 1px var(--lable);
+  border: solid 1px var(--bs-primary);
   padding: 10px;
-  color: var(--text);
+  color: var(--bs-black);
 }
 .info_label {
-  color: var(--text);
+  color: var(--bs-black);
 }
 
 #lots {
   margin-left: 66px;
-  color: var(--text);
+  color: var(--bs-black);
 }
 #maxLot {
   margin-left: -5px;
@@ -117,7 +130,7 @@ input::-webkit-inner-spin-button {
 }
 #quantities {
   margin-left: 52px;
-  color: var(--text);
+  color: var(--bs-black);
 }
 #tax {
   color: #f12d2d;
