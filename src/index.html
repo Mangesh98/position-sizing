@@ -2,10 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>PositionManager</title>
+  <title>Position Manager</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    $(document).ready(function() {
+    // Toggle menu on click
+    $("#menu-toggler").click(function() {
+      toggleBodyClass("menu-active");
+    });
+  
+    function toggleBodyClass(className) {
+      document.body.classList.toggle(className);
+    }
+  
+   });
+  </script>
 </head>
 <body>
   <app-root></app-root>

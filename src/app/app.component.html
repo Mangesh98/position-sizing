@@ -1,129 +1,32 @@
-<div class="app">
-  <fa-icon (click)="changeIcon()" class="mode" [icon]="icon"></fa-icon>
-  <i onclick="changeIcon(this)" id="mode" class="mode fa-solid fa-sun"></i>
-  <div class="inputBox">
-    <form #position="ngForm" (ngSubmit)="submit(position)">
-      <div class="d-flex justify-content-center">
-        <h1>Position Calculator</h1>
-      </div>
-      <div class="form-data">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Account</label>
-          <input
-            required
-            type="number"
-            class="form-control"
-            id="account"
-            name="account"
-            [(ngModel)]="account"
-          />
-        </div>
-        <div class="form-data">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Daily Risk</label>
-            <input
-              required
-              value="3000"
-              type="Number"
-              class="form-control"
-              id="dailyRisk"
-              name="dailyRisk"
-              [(ngModel)]="dailyRisk"
-            />
-          </div>
+<div class="">
+  <nav class="navbar navbar-expand-lg navBar">
+    <a class="navbar-brand linkCol" href="#">Position Sizer</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleCollapsed()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Select Index</label>
-            <select
-            [(ngModel)]="index"
-              class="form-control"
-              id="exampleFormControlSelect1"
-              name="lotSize"
-            >
-              <option value="50">Nifty</option>
-              <option value="25">BankNifty</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Entry Price</label>
-            <input
-              required
-              type="number"
-              class="form-control"
-              id="entry"
-              aria-describedby="entry"
-              name="entryPrice"
-              step=".01"
-              ngModel
-            />
-            
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Stop Loss</label>
-            <input
-              value=""
-              required
-              type="number"
-              class="form-control"
-              id="stopLoss"
-              aria-describedby="sl"
-              name="stopLoss"
-              step=".01"
-              ngModel
-            />
-          </div>
-          <div class="btnSubmit">
-            <button type="submit" id="btn" class="btn btn-primary">Submit</button>
-          </div>
-          <div *ngIf="position.submitted && position.status=='INVALID'" class="a alert alert-danger">Invalid !! Enter Entry & stop loss value</div>
-        </div>
-      </div>
-    </form>
-
-    <!-- <div class="d-flex justify-content-center"> -->
-    <div *ngIf="position.submitted && position.status=='VALID'" class="d-flex justify-content-center">
-      <div class="info -flex justify-content-between">
-        <div>
-          Lots<label class="info_label" style="margin-left: 88px">:</label
-          ><label id="lots">{{lots}}<label *ngIf="msg!=''" id="maxLot">(max lot)</label></label>
-        </div>
-        <div>
-          Quantities<label class="info_label" style="margin-left: 25px">:</label
-          ><label id="quantities">{{quantities}}</label>
-        </div>
-        <div>
-          Total Tax<label class="info_label" style="margin-left: 45px">:</label
-          ><label id="tax">{{total_tax}}</label>
-        </div>
-        <div>
-          Net P&L<label class="info_label" style="margin-left: 47px">:</label
-          ><label id="net_profit">{{net_profit}}</label>
-        </div>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link linkCol" routerLink="/options"
+            >Options<span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link linkCol" routerLink="/intraday">Intraday</a>
+        </li>
+      </ul>
     </div>
-
-    <script>
-      let changeIcon = function (icon) {
-        let c = document.querySelector(":root");
-        if (icon.classList.contains("fa-sun")) {
-          icon.classList.remove("fa-sun");
-          icon.classList.add("fa-moon");
-
-          c.style.setProperty("--color", "#1d2b3a");
-          c.style.setProperty("--text", "#fff");
-          c.style.setProperty("--lable", "rgba(255, 255, 255, 0.25)");
-          c.style.setProperty("--title", "#fff");
-        } else {
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
-
-          c.style.setProperty("--color", "white");
-          c.style.setProperty("--text", "black");
-          c.style.setProperty("--lable", "royalblue");
-          c.style.setProperty("--title", "royalblue");
-        }
-      };
-    </script>
-  </div>
+    <fa-icon (click)="changeIcon()" class="mode" [icon]="icon"></fa-icon>
+  </nav>
+  <router-outlet></router-outlet>
 </div>

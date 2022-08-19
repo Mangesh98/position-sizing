@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+/* :host {
+  /* --bs-white:#1d2b3a;
+    --bs-black:#fff;
+    --bs-primary:rgba(255, 255, 255, 0.25); 
+
+  --color: white;/*--bs-white 
+  --text: black; /*--bs-black
+  --lable: royalblue; /*--bs-primary 
+  --title: royalblue; /*--bs-blue 
+} */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bs-white);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* heading */
+.heading{
+  margin-bottom: 10px;
+}
+.temp{
+ width: 25vw;
+}
+
+.data {
+  display: none;
+}
+
+h1 {
+  margin-top: 17px;
+  color: var(--bs-blue);
+}
+
+
+
+.inputBox select {
+  /* width: 200px; */
+  padding: 5px;
+  padding-bottom: 0;
+  border: 1px solid var(--bs-primary);
+  background: var(--bs-white);
+  border-radius: 5px;
+  outline: none;
+  color: var(--bs-black);
+  font-size: 1em;
+}
+.inputBox input {
+  /* width: 200px; */
+  padding: 10px;
+  border: 1px solid var(--bs-primary);
+  background: var(--bs-white);
+  border-radius: 5px;
+  outline: none;
+  color: var(--bs-black);
+  font-size: 1em;
+}
+
+.inputBox input:focus {
+  background: var(--bs-white);
+  color: var(--bs-black);
+}
+.inputBox select:focus {
+  background: var(--bs-white);
+  color: var(--bs-black);
+}
+.inputBox label {
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: var(--bs-primary);
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+
+/* Alert */
+.a{
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Button */
+#btn {
+  display: block;
+  margin: auto;
+  padding: 7px;
+}
+.btnSubmit {
+  margin-top: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Info / Result */
+.info {
+  margin-top: 13px;
+  margin-bottom: 13px;
+  font-size: x-large;
+  border: solid 1px var(--bs-primary);
+  padding: 10px;
+  color: var(--bs-black);
+}
+.info_label {
+  color: var(--bs-black);
+}
+
+#lots {
+  margin-left: 66px;
+  color: var(--bs-black);
+}
+#maxLot {
+  margin-left: -5px;
+  color: red;
+  font-style: italic;
+  font-size: 17px;
+}
+#quantities {
+  margin-left: 52px;
+  color: var(--bs-black);
+}
+#tax {
+  color: #f12d2d;
+  margin-left: 48px;
+}
+#net_profit {
+  color: #f12d2d;
+  margin-left: 46px;
+}
