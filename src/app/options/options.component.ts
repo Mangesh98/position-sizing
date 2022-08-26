@@ -1,14 +1,61 @@
-import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-options',
   templateUrl: './options.component.html',
-  styleUrls: ['./options.component.css']
+  styleUrls: ['./options.component.css'],
 })
-export class OptionsComponent{
+export class OptionsComponent implements OnInit {
+  public href: string = "";
+  today: Date = new Date();
+  pipe = new DatePipe('en-US');
+  todayWithPipe: string | null | undefined;
+  d:any='';
+
+   parsedUrl = new URL(window.location.href);
+   baseUrl = this.parsedUrl.origin;
+  
+
+  constructor(
+    private appComponent: AppComponent,
+    private titleService: Title,
+    private meta: Meta,
+    private router:Router
+  ) {}
+  ngOnInit(): void {
+    this.href = this.baseUrl+this.router.url;
+    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy h:mm:ss');
+    this.d=this.todayWithPipe;
+    
+    
+    this.titleService.setTitle('Options Position Calculator');
+    this.meta.addTag({
+      name: 'description',
+      content:
+        'The Options Position Calculator will calculate the required position size based on your Nifty and Banknifty lot sizi, risk level and the stop loss in rupee',
+    });
+    this.meta.addTag({
+      name: 'keywords',
+      content: 'position size calculator,position size calculator zerodha, lot size calculator, nifty and banknifty lot size calculator, nifty and banknifty position size calculator, position size calculator nifty and banknifty, options position size calculator, nifty and banknifty lot calculator, Options position size, nifty and banknifty lot size calculator, position size calculator Options, nifty and banknifty risk management calculator, nifty and banknifty calculators, Options calculator',
+    });
+    this.meta.addTag({ name: 'server-time', content: this.d});
+    this.meta.addTag({ httpEquiv: 'content-language', content: 'en' });
+    this.meta.addTag({ name: 'viewport', content: 'width=device-width, minimum-scale=1, user-scalable=no' });
+    this.meta.addTag({ property: 'og:title', content: 'Options Position Calculator' });
+    this.meta.addTag({ property: 'og:url', content: this.href });
+    this.meta.addTag({ property: 'og:type', content: 'website' });
+    this.meta.addTag({ property: 'og:description', content: 'The Options Position Calculator will calculate the required position size based on your Nifty and Banknifty lot sizi, risk level and the stop loss in rupee' });
+
+    // this.meta.addTag({ name: 'author', content: 'rsgitech' });
+    // this.meta.addTag({ name: 'robots', content: 'index, follow' });
+  }
+  
   account: number = 100000;
   dailyRisk: number = 3000;
   index: number = 50;
-  title = 'PositionManager';
   net_profit = 0;
   lots = 0;
   quantities = 0;
@@ -16,6 +63,7 @@ export class OptionsComponent{
   msg = '';
 
   submit(position: any) {
+    console.log(this.today);
     if (position.status == 'VALID') {
       var account = this.account;
       var dailyRisk = position.value.dailyRisk;
@@ -33,7 +81,6 @@ export class OptionsComponent{
         var hq = account / entryPrice;
         var q = Math.floor(hq / lotSize);
         var max_quentity = q * lotSize;
-
         if (quantity != 0) {
           var lots = Math.floor(dailyRisk / quantity);
           var quantities = lots * lotSize;
@@ -42,7 +89,7 @@ export class OptionsComponent{
             lots = q;
             quantities = max_quentity;
             this.msg = '(Max Lot)';
-          }else{
+          } else {
             this.msg = '';
           }
 
@@ -89,7 +136,13 @@ export class OptionsComponent{
           stamp_charges = Math.round(entryPrice * quantities * 0.00003);
           total_tax =
             brokerage + stt_total + etc + gst + sebi_charges + stamp_charges;
-          this.net_profit = Math.round((((stopLossPrice - entryPrice) * quantities - total_tax)+Number.EPSILON) * 100)/ 100;
+          this.net_profit =
+            Math.round(
+              ((stopLossPrice - entryPrice) * quantities -
+                total_tax +
+                Number.EPSILON) *
+                100
+            ) / 100;
           this.lots = lots;
           this.quantities = quantities;
           total_tax = Math.round((total_tax + Number.EPSILON) * 100) / 100;

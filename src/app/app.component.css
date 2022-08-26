@@ -1,17 +1,36 @@
 .mode {
-       /* margin: 15px; */
-       position: absolute;
-       top: 0;
-       right: 3em;
-       color: var(--bs-blue);
-       font-size: 2.5em;
-       cursor: pointer;
-  }
-  .navBar{
-     background-color: var(--bs-white) !important;
-     color: var(--bs-blue);
-  }
-  
-.linkCol{
-     color: var(--bs-blue);
+  position: absolute;
+  top: 7px;
+  right: 1.5em;
+  color: var(--bs-blue);
+  font-size: 2.5em !important;
+  cursor: pointer;
 }
+.mainPage{
+  background-color: var(--bs-white) !important;
+  color: var(--bs-blue);
+}
+.navBar {
+  background-color: var(--bs-white) !important;
+  color: var(--bs-blue);
+}
+
+.linkCol {
+  color: var(--bs-blue);
+  font-size: 1.6em;
+}
+.Link {
+  font-weight: 500;
+  font-size: 1.5em !important;
+}
+
+.nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+     background-color: #21D4FD;
+     background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+     border-radius: 5px;
+ }

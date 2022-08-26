@@ -1,32 +1,50 @@
-<div class="">
+<div class="mainPage">
   <nav class="navbar navbar-expand-lg navBar">
-    <a class="navbar-brand linkCol" href="#">Position Sizer</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      (click)="toggleCollapsed()"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
+      <a class="navbar-brand linkCol" routerLink="/">{{title}}</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        (click)="toggleCollapsed()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link linkCol" routerLink="/options"
-            >Options<span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link linkCol" routerLink="/intraday">Intraday</a>
-        </li>
-      </ul>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+        [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }"
+      >
+        <ul class="navbar-nav navbar-nav ms-auto mr-auto">
+          <li class="nav-item active">
+            <a
+              class="nav-link linkCol Link"
+              routerLink="/option-size-calculator"
+              >Options Calculator<span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link linkCol Link"
+              routerLink="/equity-size-calculator"
+              >Equity Calculator</a
+            >
+          </li>
+        </ul>
+      </div>
+      <fa-icon (click)="changeIcon()" class="mode" [icon]="icon"></fa-icon>
     </div>
-    <fa-icon (click)="changeIcon()" class="mode" [icon]="icon"></fa-icon>
   </nav>
   <router-outlet></router-outlet>
+  <footer class="navBar">
+    <div class="text-center p-4">
+      Copyright © {{year}} <span>{{title}}</span> - All rights reserved by -
+      <span class="text-reset fw-bold">Mangesh</span>
+    </div>
+  </footer>
 </div>

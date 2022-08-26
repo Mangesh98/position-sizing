@@ -1,15 +1,57 @@
-import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-intraday',
   templateUrl: './intraday.component.html',
   styleUrls: ['./intraday.component.css']
 })
-export class IntradayComponent {
+export class IntradayComponent implements OnInit{
+  public href: string = "";
+  today: Date = new Date();
+  pipe = new DatePipe('en-US');
+  todayWithPipe: string | null | undefined;
+  d:any='';
+
+   parsedUrl = new URL(window.location.href);
+   baseUrl = this.parsedUrl.origin;
+
+   constructor(
+    private appComponent: AppComponent,
+    private titleService: Title,
+    private meta: Meta,
+    private router:Router
+  ) {}
+  ngOnInit(): void {
+    this.href = this.baseUrl+this.router.url;
+    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy h:mm:ss');
+    this.d=this.todayWithPipe;
+    
+    
+    this.titleService.setTitle('Equity Position Calculator');
+    this.meta.addTag({
+      name: 'description',
+      content:
+        'The Equity/Stock Position Calculator will calculate the required position size based on your stock price , risk level and the stop loss in rupee',
+    });
+    this.meta.addTag({
+      name: 'keywords',
+      content: 'Stock position size calculator,position size calculator,stock size calculator,position size calculator zerodha, position size calculator Equity, Equity position size calculator, Equity lot calculator, Equity position size,stock position size, stock lot size calculator,Equity lot size calculator, Equity risk management calculator, Equity calculators,stock calculators',
+    });
+    this.meta.addTag({ name: 'server-time', content: this.d});
+    this.meta.addTag({ httpEquiv: 'content-language', content: 'en' });
+    this.meta.addTag({ name: 'viewport', content: 'width=device-width, minimum-scale=1, user-scalable=no' });
+    this.meta.addTag({ property: 'og:title', content: 'Equity Position Calculator' });
+    this.meta.addTag({ property: 'og:url', content: this.href });
+    this.meta.addTag({ property: 'og:type', content: 'website' });
+    this.meta.addTag({ property: 'og:description', content: 'The Equity/Stock  Position Calculator will calculate the required position size based on your stock price , risk level and the stop loss in rupee' });
+  }
   account: number = 100000;
   dailyRisk: number = 3000;
   index: number = 50;
-  title = 'PositionManager';
   net_profit = 0;
   quantities = 0;
   total_tax = 0;

@@ -6,11 +6,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule,rountingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './home/home.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    rountingComponents
+    rountingComponents,
+    HomeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule
     
   ],
-  providers: [],
+  providers: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

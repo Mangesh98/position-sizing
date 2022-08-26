@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css','./app.component.scss'],
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent{
+  title='Position Sizing'
   icon = faSun;
-
+  var1=15641;
+  year=new Date().getFullYear();
   changeIcon() {
     if (this.icon == faSun) {
       this.icon = faMoon;
@@ -27,10 +29,14 @@ export class AppComponent {
       document.documentElement.style.setProperty('--bs-black', 'black');
       document.documentElement.style.setProperty('--bs-primary', 'royalblue');
       document.documentElement.style.setProperty('--bs-blue', 'royalblue');
+
     }
   }
   collapsed = true;
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
+
+ 
+  
 }

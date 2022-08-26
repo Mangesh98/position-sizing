@@ -94,6 +94,8 @@ h1 {
   display: block;
   margin: auto;
   padding: 7px;
+  color: var(--bs-blue);
+  background-color: var(--bs-white);
 }
 .btnSubmit {
   margin-top: 10px;
