@@ -38,3 +38,10 @@
  .active{
   background-color: var(--bs-gray-dark);
  }
+ @media only screen 
+and (max-device-width: 600px)
+{ 
+  .mode{
+    right: 1.9em;
+  }
+}
