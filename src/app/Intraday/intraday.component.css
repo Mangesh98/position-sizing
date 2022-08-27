@@ -5,16 +5,6 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-/* :host {
-  /* --bs-white:#1d2b3a;
-    --bs-black:#fff;
-    --bs-primary:rgba(255, 255, 255, 0.25); 
-
-  --color: white;/*--bs-white 
-  --text: black; /*--bs-black
-  --lable: royalblue; /*--bs-primary 
-  --title: royalblue; /*--bs-blue 
-} */
 
 .app {
   min-height: 100vh;
@@ -44,7 +34,6 @@ h1 {
 
 
 .inputBox select {
-  /* width: 200px; */
   padding: 5px;
   padding-bottom: 0;
   border: 1px solid var(--bs-primary);
@@ -55,7 +44,6 @@ h1 {
   font-size: 1em;
 }
 .inputBox input {
-  /* width: 200px; */
   padding: 10px;
   border: 1px solid var(--bs-primary);
   background: var(--bs-white);
