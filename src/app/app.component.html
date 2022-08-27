@@ -21,14 +21,15 @@
         [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }"
       >
         <ul class="navbar-nav navbar-nav ms-auto mr-auto">
-          <li class="nav-item active">
+          <li routerLinkActive="active" class="nav-item">
             <a
+              
               class="nav-link linkCol Link"
               routerLink="/option-size-calculator"
               >Options Calculator<span class="sr-only">(current)</span></a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" routerLinkActive="active">
             <a
               class="nav-link linkCol Link"
               routerLink="/equity-size-calculator"

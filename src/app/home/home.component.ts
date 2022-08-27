@@ -10,6 +10,8 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+
   public href: string = "";
   today: Date = new Date();
   pipe = new DatePipe('en-US');

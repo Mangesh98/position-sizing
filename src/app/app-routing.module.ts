@@ -9,7 +9,8 @@ const routes: Routes = [
   {path: '',component:HomeComponent},
   {path: 'equity-size-calculator',component:IntradayComponent},
   {path: 'option-size-calculator',component:OptionsComponent},
-
+  // {path: 'sitemap.xml',canLoad:},
+  { path: 'sitemap.xml', redirectTo: '/sitemap.xml', pathMatch: 'full' },
   // Last
   {path: '**',component:ErrorComponent}
 ];
