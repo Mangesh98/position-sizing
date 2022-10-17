@@ -9,28 +9,26 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./options.component.css'],
 })
 export class OptionsComponent implements OnInit {
-  public href: string = "";
+  public href: string = '';
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: string | null | undefined;
-  d:any='';
+  d: any = '';
 
-   parsedUrl = new URL(window.location.href);
-   baseUrl = this.parsedUrl.origin;
-  
+  parsedUrl = new URL(window.location.href);
+  baseUrl = this.parsedUrl.origin;
 
   constructor(
     private appComponent: AppComponent,
     private titleService: Title,
     private meta: Meta,
-    private router:Router
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.href = this.baseUrl+this.router.url;
+    this.href = this.baseUrl + this.router.url;
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy h:mm:ss');
-    this.d=this.todayWithPipe;
-    
-    
+    this.d = this.todayWithPipe;
+
     this.titleService.setTitle('Options Position Calculator');
     this.meta.addTag({
       name: 'description',
@@ -39,20 +37,29 @@ export class OptionsComponent implements OnInit {
     });
     this.meta.addTag({
       name: 'keywords',
-      content: 'position size calculator,position size calculator zerodha, lot size calculator, nifty and banknifty lot size calculator, nifty and banknifty position size calculator, position size calculator nifty and banknifty, options position size calculator, nifty and banknifty lot calculator, Options position size, nifty and banknifty lot size calculator, position size calculator Options, nifty and banknifty risk management calculator, nifty and banknifty calculators, Options calculator',
+      content:
+        'position size calculator,position size calculator zerodha, lot size calculator, nifty and banknifty lot size calculator, nifty and banknifty position size calculator, position size calculator nifty and banknifty, options position size calculator, nifty and banknifty lot calculator, Options position size, nifty and banknifty lot size calculator, position size calculator Options, nifty and banknifty risk management calculator, nifty and banknifty calculators, Options calculator',
     });
-    this.meta.addTag({ name: 'server-time', content: this.d});
+    this.meta.addTag({ name: 'server-time', content: this.d });
     this.meta.addTag({ httpEquiv: 'content-language', content: 'en' });
-    this.meta.addTag({ name: 'viewport', content: 'width=device-width, minimum-scale=1, user-scalable=no' });
-    this.meta.addTag({ property: 'og:title', content: 'Options Position Calculator' });
+    this.meta.addTag({
+      name: 'viewport',
+      content: 'width=device-width, minimum-scale=1, user-scalable=no',
+    });
+    this.meta.addTag({
+      property: 'og:title',
+      content: 'Options Position Calculator',
+    });
     this.meta.addTag({ property: 'og:url', content: this.href });
     this.meta.addTag({ property: 'og:type', content: 'website' });
-    this.meta.addTag({ property: 'og:description', content: 'The Options Position Calculator will calculate the required position size based on your Nifty and Banknifty lot sizi, risk level and the stop loss in rupee' });
-
-    // this.meta.addTag({ name: 'author', content: 'rsgitech' });
-    // this.meta.addTag({ name: 'robots', content: 'index, follow' });
+    this.meta.addTag({
+      property: 'og:description',
+      content:
+        'The Options Position Calculator will calculate the required position size based on your Nifty and Banknifty lot sizi, risk level and the stop loss in rupee',
+    });
+    
   }
-  
+
   account: number = 100000;
   dailyRisk: number = 3000;
   index: number = 50;
@@ -61,6 +68,12 @@ export class OptionsComponent implements OnInit {
   quantities = 0;
   total_tax = 0;
   msg = '';
+  firstTarget = 0;
+  firstTargetPrice = 0;
+  secondTarget = 0;
+  secondTargetPrice = 0;
+  customTarget = 0;
+  customTargetPrice = 0;
 
   submit(position: any) {
     console.log(this.today);
@@ -147,8 +160,39 @@ export class OptionsComponent implements OnInit {
           this.quantities = quantities;
           total_tax = Math.round((total_tax + Number.EPSILON) * 100) / 100;
           this.total_tax = total_tax;
+          
+          this.firstTargetPrice=(stopLoss*1.5)+entryPrice;
+          this.secondTargetPrice=(stopLoss*2)+entryPrice;
+
+          this.firstTarget = getTarget(entryPrice, this.firstTargetPrice, quantities);
+          this.secondTarget = getTarget(entryPrice, this.secondTargetPrice, quantities);
         }
       }
     }
   }
+}
+
+function getTarget(
+  entryPrice: any,
+  stopLossPrice: any,
+  quantities: number
+): any {
+  var brokerage = 40;
+
+  var turnover = (entryPrice + stopLossPrice) * quantities;
+  var stt_total = Math.round(stopLossPrice * quantities * 0.0005);
+  var etc = 0.00053 * turnover;
+  var gst = 0.18 * (brokerage + etc);
+  var sebi_charges = turnover * 0.000001;
+  var sebi_charges = sebi_charges + sebi_charges * 0.18;
+  var stamp_charges = Math.round(entryPrice * quantities * 0.00003);
+  var total_tax =
+    brokerage + stt_total + etc + gst + sebi_charges + stamp_charges;
+  var net_profit =
+    Math.round(
+      ((stopLossPrice - entryPrice) * quantities - total_tax + Number.EPSILON) *
+        100
+    ) / 100;
+
+  return net_profit;
 }
