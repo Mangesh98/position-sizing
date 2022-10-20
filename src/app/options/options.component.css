@@ -143,3 +143,11 @@ input::-webkit-inner-spin-button {
   color: #00b100 !important;
   margin-left: 1.5em;
 }
+.rtrBox {
+  padding: 0px !important;
+  width: 2em !important;
+}
+.rtrText{
+  padding: 0px !important;
+  left: 0;
+}

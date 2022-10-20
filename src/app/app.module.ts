@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule
     
   ],
-  providers: [AppComponent],
+  providers: [AppComponent,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,15 @@
 import { Component, OnInit} from '@angular/core';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
+import {CookieService} from 'ngx-cookie-service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit{
+
+
   check=0;
 
   ngOnInit(): void {

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-options',
@@ -22,8 +23,26 @@ export class OptionsComponent implements OnInit {
     private appComponent: AppComponent,
     private titleService: Title,
     private meta: Meta,
-    private router: Router
+    private router: Router,
+    private cookie:CookieService,
   ) {}
+
+  setCookie(a:number,d:number)
+  {
+    let account=a.toString();
+    let dailyRisk=d.toString();
+    this.cookie.set('account',account,{ expires: 365});
+    this.cookie.set('dailyRisk',dailyRisk,{ expires: 365});
+  }
+  getCookie()
+  {
+    if(this.cookie.check('account'))
+    {
+      return [this.cookie.get('account'),this.cookie.get('dailyRisk')];
+    }
+    return [100000,3000];
+  }
+
   ngOnInit(): void {
     this.href = this.baseUrl + this.router.url;
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy h:mm:ss');
@@ -57,65 +76,76 @@ export class OptionsComponent implements OnInit {
       content:
         'The Options Position Calculator will calculate the required position size based on your Nifty and Banknifty lot sizi, risk level and the stop loss in rupee',
     });
-    
   }
 
-  account: number = 100000;
-  dailyRisk: number = 3000;
+  account:any= this.cookie.get('account');
+  dailyRisk:any= this.cookie.get('dailyRisk');
+
+  // account: number = 1;
+  rtrValue: number = 1;
   index: number = 50;
   net_profit = 0;
   lots = 0;
   quantities = 0;
+  customQuantities = 0;
   total_tax = 0;
   msg = '';
   firstTarget = 0;
   firstTargetPrice = 0;
-  secondTarget = 0;
-  secondTargetPrice = 0;
   customTarget = 0;
   customTargetPrice = 0;
+  stopLoss = 0;
+  stopLossPrice = 0;
+  entryPrice = 0;
 
   submit(position: any) {
     console.log(this.today);
     if (position.status == 'VALID') {
       var account = this.account;
       var dailyRisk = position.value.dailyRisk;
+      this.customQuantities = position.value.customQuantities;
+      console.log(position.value.customQuantities);
+      this.setCookie(account,dailyRisk);
       var lotSize = this.index;
-      var entryPrice = position.value.entryPrice;
+      this.entryPrice = position.value.entryPrice;
       var stopLossPrice = position.value.stopLoss;
-      if (entryPrice < stopLossPrice) {
-        this.net_profit = 0;
-        this.lots = 0;
-        this.quantities = 0;
-        this.total_tax = 0;
+      if (this.entryPrice < stopLossPrice) {
+
+        [this.net_profit,this.total_tax] = getTarget(
+          this.entryPrice,
+          this.stopLossPrice,
+          this.customQuantities
+        );
       } else {
-        var stopLoss = entryPrice - stopLossPrice;
-        var quantity = stopLoss * lotSize;
-        var hq = account / entryPrice;
+        this.stopLoss = this.entryPrice - stopLossPrice;
+        var quantity = this.stopLoss * lotSize;
+        var hq = account / this.entryPrice;
         var q = Math.floor(hq / lotSize);
         var max_quentity = q * lotSize;
         if (quantity != 0) {
           var lots = Math.floor(dailyRisk / quantity);
-          var quantities = lots * lotSize;
+          this.quantities = lots * lotSize;
 
-          if (quantities > max_quentity) {
+          if (this.quantities > max_quentity) {
             lots = q;
-            quantities = max_quentity;
+            this.quantities = max_quentity;
             this.msg = '(Max Lot)';
           } else {
             this.msg = '';
           }
 
-          var loss = quantities * stopLoss;
+          var loss = this.quantities * this.stopLoss;
           var brokerage = 40;
 
-          var turnover = (entryPrice + stopLossPrice) * quantities;
-          var stt_total = Math.round(stopLossPrice * quantities * 0.0005);
+          var turnover = (this.entryPrice + stopLossPrice) * this.quantities;
+          var stt_total = Math.round(stopLossPrice * this.quantities * 0.0005);
           var etc = 0.00053 * turnover;
           var gst = 0.18 * (brokerage + etc);
           var sebi_charges = turnover * 0.000001;
           var sebi_charges = sebi_charges + sebi_charges * 0.18;
-          var stamp_charges = Math.round(entryPrice * quantities * 0.00003);
+          var stamp_charges = Math.round(
+            this.entryPrice * this.quantities * 0.00003
+          );
           var total_tax =
             brokerage + stt_total + etc + gst + sebi_charges + stamp_charges;
 
@@ -132,42 +162,75 @@ export class OptionsComponent implements OnInit {
           total_tax = 0;
 
           lots = Math.floor(dailyRisk / quantity);
-          quantities = lots * lotSize;
-          if (quantities > max_quentity) {
+          this.quantities = lots * lotSize;
+          if (this.quantities > max_quentity) {
             lots = q;
-            quantities = max_quentity;
+            this.quantities = max_quentity;
             this.msg = '( Max Lot )';
           }
 
-          loss = quantities * stopLoss;
-          turnover = (entryPrice + stopLossPrice) * quantities;
-          stt_total = Math.round(stopLossPrice * quantities * 0.0005);
+          loss = this.quantities * this.stopLoss;
+          turnover = (this.entryPrice + stopLossPrice) * this.quantities;
+          stt_total = Math.round(stopLossPrice * this.quantities * 0.0005);
           etc = 0.00053 * turnover;
           gst = 0.18 * (brokerage + etc);
           sebi_charges = turnover * 0.000001;
           sebi_charges = sebi_charges + sebi_charges * 0.18;
-          stamp_charges = Math.round(entryPrice * quantities * 0.00003);
+          stamp_charges = Math.round(
+            this.entryPrice * this.quantities * 0.00003
+          );
           total_tax =
             brokerage + stt_total + etc + gst + sebi_charges + stamp_charges;
           this.net_profit =
             Math.round(
-              ((stopLossPrice - entryPrice) * quantities -
+              ((stopLossPrice - this.entryPrice) * this.quantities -
                 total_tax +
                 Number.EPSILON) *
                 100
             ) / 100;
           this.lots = lots;
-          this.quantities = quantities;
+          this.quantities = this.quantities;
           total_tax = Math.round((total_tax + Number.EPSILON) * 100) / 100;
           this.total_tax = total_tax;
-          
-          this.firstTargetPrice=(stopLoss*1.5)+entryPrice;
-          this.secondTargetPrice=(stopLoss*2)+entryPrice;
 
-          this.firstTarget = getTarget(entryPrice, this.firstTargetPrice, quantities);
-          this.secondTarget = getTarget(entryPrice, this.secondTargetPrice, quantities);
+          this.firstTargetPrice =
+            Math.round(
+              (this.stopLoss * 2 + this.entryPrice + Number.EPSILON) * 100
+            ) / 100;
+          this.customTargetPrice =
+            Math.round(
+              (this.stopLoss * 1 + this.entryPrice + Number.EPSILON) * 100
+            ) / 100;
+
+          let temp;
+          [this.firstTarget,temp] = getTarget(
+            this.entryPrice,
+            this.firstTargetPrice,
+            this.quantities
+          );
+          [this.customTarget,temp] = getTarget(
+            this.entryPrice,
+            this.customTargetPrice,
+            this.quantities
+          );
         }
       }
+    }
+  }
+
+  rtrUpdate(searchValue: any) {
+    if (this.rtrValue != null && searchValue.data != null) {
+      this.customTargetPrice =
+        Math.round(
+          (this.stopLoss * this.rtrValue + this.entryPrice + Number.EPSILON) *
+            100
+        ) / 100;
+      this.customTarget = getTarget(
+        this.entryPrice,
+        this.customTargetPrice,
+        this.quantities
+      );
+      console.log(this.customTargetPrice + ' ' + this.customTarget);
     }
   }
 }
@@ -188,11 +251,12 @@ function getTarget(
   var stamp_charges = Math.round(entryPrice * quantities * 0.00003);
   var total_tax =
     brokerage + stt_total + etc + gst + sebi_charges + stamp_charges;
+  total_tax = Math.round((total_tax + Number.EPSILON) * 100) / 100;
   var net_profit =
     Math.round(
       ((stopLossPrice - entryPrice) * quantities - total_tax + Number.EPSILON) *
         100
     ) / 100;
 
-  return net_profit;
+  return [net_profit,total_tax];
 }
