@@ -220,12 +220,13 @@ export class OptionsComponent implements OnInit {
 
   rtrUpdate(searchValue: any) {
     if (this.rtrValue != null && searchValue.data != null) {
+      let temp;
       this.customTargetPrice =
         Math.round(
           (this.stopLoss * this.rtrValue + this.entryPrice + Number.EPSILON) *
             100
         ) / 100;
-      this.customTarget = getTarget(
+      [this.customTarget,temp] = getTarget(
         this.entryPrice,
         this.customTargetPrice,
         this.quantities

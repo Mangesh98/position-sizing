@@ -61,7 +61,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Stop Loss | Target</label>
             <input
-            [(ngModel)]="stopLossPrice"
+              [(ngModel)]="stopLossPrice"
               value=""
               required
               type="number"
@@ -73,12 +73,10 @@
               ngModel
             />
           </div>
-          <div class="form-group"
-          *ngIf="entryPrice<stopLossPrice"
-          >
+          <div class="form-group" *ngIf="entryPrice <= stopLossPrice">
             <label for="exampleInputEmail1">Quantities</label>
             <input
-            [(ngModel)]="customQuantities"
+              [(ngModel)]="customQuantities"
               value=""
               required
               type="number"
@@ -108,7 +106,11 @@
     <div class="d-flex justify-content-center">
       <div
         class="info -flex justify-content-between"
-        *ngIf="position.submitted && position.status == 'VALID' && entryPrice>=stopLossPrice"
+        *ngIf="
+          position.submitted &&
+          position.status == 'VALID' &&
+          entryPrice > stopLossPrice
+        "
       >
         <div>
           Lots<label class="info_label" style="margin-left: 88px">:</label
@@ -154,10 +156,14 @@
           ><label class="targetText">{{ customTarget }}</label>
         </div>
       </div>
-      
+
       <div
         class="info -flex justify-content-between"
-        *ngIf="position.submitted && position.status == 'VALID' && entryPrice<=stopLossPrice"
+        *ngIf="
+          position.submitted &&
+          position.status == 'VALID' &&
+          entryPrice <= stopLossPrice
+        "
       >
         <div>
           Total Tax<label class="info_label" style="margin-left: 45px">:</label
@@ -172,14 +178,4 @@
   </div>
 </div>
 
-<!-- 
 
-  Options Page Update
-  # added Risk Reward ratio 
-  [ Price as well as Reward in Rs ]
-
-  Options Page Update
-  Custom R2R Added
-  Cookie added
-
- -->
