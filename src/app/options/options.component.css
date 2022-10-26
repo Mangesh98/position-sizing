@@ -100,7 +100,7 @@ h1 {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   margin: 0;
 }
 
@@ -150,4 +150,25 @@ input::-webkit-inner-spin-button {
 .rtrText{
   padding: 0px !important;
   left: 0;
+  color: var(--bs-blue) !important;
+}
+
+
+
+
+/* animate new box */
+.new-box {
+	animation: append-animate .4s linear;
+}
+
+
+@keyframes append-animate {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;	
+	}
 }

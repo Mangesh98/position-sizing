@@ -56,6 +56,7 @@
               name="entryPrice"
               step=".01"
               ngModel
+              (input)="submit(position)"
             />
           </div>
           <div class="form-group">
@@ -71,9 +72,10 @@
               name="stopLoss"
               step=".01"
               ngModel
+              (input)="submit(position)"
             />
           </div>
-          <div class="form-group" *ngIf="entryPrice <= stopLossPrice">
+          <div class="form-group new-box" *ngIf="entryPrice <= stopLossPrice">
             <label for="exampleInputEmail1">Quantities</label>
             <input
               [(ngModel)]="customQuantities"
@@ -86,6 +88,7 @@
               name="customQuantities"
               step=".01"
               ngModel
+              (input)="submit(position)"
             />
           </div>
           <div class="btnSubmit">
@@ -103,7 +106,7 @@
       </div>
     </form>
 
-    <div class="d-flex justify-content-center">
+    <div id="mainInfo" class="d-flex justify-content-center">
       <div
         class="info -flex justify-content-between"
         *ngIf="
@@ -138,7 +141,7 @@
             >:</label
           ><label class="targetText">&#43;{{ firstTarget }}</label>
         </div>
-        <div class="rtr">
+        <div class="rtr"> 
           <label class="rtrText" for="rtr">Risk To Reward 1 : </label>
           <input
             [(ngModel)]="rtrValue"

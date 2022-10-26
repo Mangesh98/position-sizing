@@ -16,6 +16,9 @@ export class OptionsComponent implements OnInit {
   todayWithPipe: string | null | undefined;
   d: any = '';
 
+  
+  
+
   parsedUrl = new URL(window.location.href);
   baseUrl = this.parsedUrl.origin;
 
@@ -42,6 +45,7 @@ export class OptionsComponent implements OnInit {
     }
     return [100000,3000];
   }
+
 
   ngOnInit(): void {
     this.href = this.baseUrl + this.router.url;
@@ -99,12 +103,10 @@ export class OptionsComponent implements OnInit {
   entryPrice = 0;
 
   submit(position: any) {
-    console.log(this.today);
     if (position.status == 'VALID') {
       var account = this.account;
       var dailyRisk = position.value.dailyRisk;
       this.customQuantities = position.value.customQuantities;
-      console.log(position.value.customQuantities);
       this.setCookie(account,dailyRisk);
       var lotSize = this.index;
       this.entryPrice = position.value.entryPrice;
@@ -213,6 +215,7 @@ export class OptionsComponent implements OnInit {
             this.customTargetPrice,
             this.quantities
           );
+        
         }
       }
     }
@@ -231,7 +234,6 @@ export class OptionsComponent implements OnInit {
         this.customTargetPrice,
         this.quantities
       );
-      console.log(this.customTargetPrice + ' ' + this.customTarget);
     }
   }
 }
